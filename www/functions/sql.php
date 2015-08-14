@@ -1,27 +1,27 @@
 <?php
 
-function sql_connect()
+function sqlConnect()
 {
     mysql_connect('localhost', 'root', '');
     mysql_select_db('news');
 }
 
-function sql_select($query)
+function sqlSelect($query)
 {
-    sql_connect();
+    sqlConnect();
     $res = mysql_query($query);
     $ret = [];
 
-    while ($row = mysql_fetch_row($res)) {
+    while ($row = mysql_fetch_assoc($res)) {
         $ret[] = $row;
     }
 
     return $ret;
 }
 
-function sql_execute($query)
+function sqlExecute($query)
 {
-    sql_connect();
+    sqlConnect();
     $res = mysql_query($query);
 
     return $res != false;
