@@ -7,7 +7,7 @@ class NewsController
 
         $view = new View();
         $view->setData('items',$items);
-        $view->display(__DIR__ . '/../view/articleAll.php');
+        $view->display(__DIR__ . '/../view/templates/articleAll.php');
     }
 
     public function actionOne(){
@@ -15,11 +15,11 @@ class NewsController
 
         $view = new View();
         $view->setData('item',$item);
-        $view->display(__DIR__.'/../view/article.php');
+        $view->display(__DIR__.'/../view/templates/article.php');
     }
 
     public function actionAdd(){
         $view = new View();
-        $view->display(__DIR__.'/../view/new_article.php');
+        $view->display(__DIR__.'/../view/templates/new_article.php');
     }
 }

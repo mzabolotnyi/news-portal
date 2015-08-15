@@ -16,6 +16,6 @@ class AdminController
             }
         }
 
-        include __DIR__ . "/../view/new_article.php";
+        include __DIR__ . "/../view/templates/new_article.php";
     }
 }
