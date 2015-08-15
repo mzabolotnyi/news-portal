@@ -77,7 +77,7 @@ class NewsArticle
     }
 
     public function showPreview(){
-        echo $this->getDate() . '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' . $this->title;
+        echo $this->getDate() . '&nbsp&nbsp&nbsp'. $this->title.'&nbsp&nbsp&nbsp('.$this->author.')';
     }
 }
 
