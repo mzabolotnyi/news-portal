@@ -1,20 +1,3 @@
-<?php
-
-require __DIR__."/../models/articles.php";
-
-if(empty($_GET['id'])){
-    header('Location: /');
-    die;
-}
-
-$article = NewsArticle::getById($_GET['id']);
-
-if ($article == false){
-    header('Location: /');
-    die;
-}
-?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,6 +10,7 @@ if ($article == false){
 <body>
 <?php
 include __DIR__ . "/nav.php";
+$item = $this->data['item'];
 ?>
 
 <div class="container">
@@ -36,22 +20,22 @@ include __DIR__ . "/nav.php";
         <div class="col-md-8">
             <div class="row">
                 <div class="col-md-12">
-                    <h2><?php echo $article->title?></h2>
+                    <h2><?php echo $item->title?></h2>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-4">
-                    <h4><?php echo $article->getDate()?></h4>
+                    <h4><?php echo $item->getDate()?></h4>
                 </div>
                 <div class="col-md-8">
-                    <h4><?php echo $article->author?></h4>
+                    <h4><?php echo $item->author?></h4>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-                    <?php echo $article->content?>
+                    <?php echo $item->content?>
                 </div>
             </div>
         </div>

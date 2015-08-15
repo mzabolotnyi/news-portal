@@ -1,11 +1,3 @@
-<?php
-
-require __DIR__ . "/../models/articles.php";
-
-$articles = NewsArticle::getAll();
-
-?>
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,13 +17,12 @@ include __DIR__ . "/nav.php";
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <?php
-            foreach ($articles as $article):
-                ?>
+            <?php foreach ($this->data['items'] as $item): ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="/view/article.php<?php echo '?id=' . $article->getId() ?>">
-                            <?php $article->showPreview() ?>
+                        <span style="padding-right: 15px"><?php echo $item->getDate() ?></span>
+                        <a href="/index.php<?php echo '?ctrl=News&act=One&id=' . $item->getId() ?>">
+                            <?php $item->showPreview() ?>
                         </a>
                     </div>
                 </div>

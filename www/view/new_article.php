@@ -15,7 +15,7 @@ include __DIR__ . "/nav.php";
 <div class="container text-center">
 
     <div class="text-center">
-        <form action="/new_article/" method="post" name="new_art">
+        <form action="/index.php?ctrl=Admin&act=AddArticle" method="post" name="new_art">
             <div class="form-group">
                 <input type="text" name="title" placeholder="title" style="width: 600px;" required>
             </div>

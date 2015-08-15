@@ -1,30 +1,30 @@
 <?php
 
-class Sql
+class BD
 {
 
-    static public function sqlConnect()
+    public static function sqlConnect()
     {
         mysql_connect('localhost', 'root', '');
         mysql_select_db('news');
     }
 
-    static public function sqlSelect($query)
+    public static function sqlSelect($query, $class = 'stdClass')
     {
-        Sql::sqlConnect();
+        BD::sqlConnect();
         $res = mysql_query($query);
         $ret = [];
 
-        while ($row = mysql_fetch_assoc($res)) {
+        while ($row = mysql_fetch_object($res, $class)) {
             $ret[] = $row;
         }
 
         return $ret;
     }
 
-    static public function sqlExecute($query)
+    public static function sqlExecute($query)
     {
-        Sql::sqlConnect();
+        BD::sqlConnect();
         $res = mysql_query($query);
 
         return $res != false;
