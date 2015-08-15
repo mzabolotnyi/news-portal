@@ -2,7 +2,7 @@
 
 require __DIR__ . "/../models/articles.php";
 
-$articles = articlesGetAll();
+$articles = NewsArticle::getAll();
 
 ?>
 
@@ -30,8 +30,8 @@ include __DIR__ . "/nav.php";
                 ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <a href="/view/article.php<?php echo '?id=' . $article['id'] ?>">
-                            <?php echo $article['date'] . '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' . $article['title'] ?>
+                        <a href="/view/article.php<?php echo '?id=' . $article->getId() ?>">
+                            <?php $article->showPreview() ?>
                         </a>
                     </div>
                 </div>

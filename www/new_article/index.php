@@ -2,12 +2,13 @@
 
 require __DIR__ . "/../models/articles.php";
 
-if (!empty($_POST['title'])){
-    $title = $_POST['title'];
-    $author = $_POST['author'];
-    $content = $_POST['content'];
+if (!empty($_POST['title'])) {
+    $article = new NewsArticle();
+    $article->title = $_POST['title'];
+    $article->author = $_POST['author'];
+    $article->content = $_POST['content'];
 
-    if(articlesAdd($title, $author, $content)){
+    if ($article->add()) {
         header('Location: /');
         die;
     }
