@@ -10,7 +10,6 @@
 <body>
 <?php
 include __DIR__ . "/nav.php";
-$item = $this->data['item'];
 ?>
 
 <div class="container">
@@ -26,7 +25,7 @@ $item = $this->data['item'];
 
             <div class="row">
                 <div class="col-md-4">
-                    <h4><?php echo $item->getDate()?></h4>
+                    <h4><?php echo $item->getDateStr()?></h4>
                 </div>
                 <div class="col-md-8">
                     <h4><?php echo $item->author?></h4>

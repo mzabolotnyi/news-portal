@@ -10,7 +10,7 @@ class AdminController
             $article->author = $_POST['author'];
             $article->content = $_POST['content'];
 
-            if ($article->add()) {
+            if ($article->save()) {
                 header('Location: /');
                 die;
             }

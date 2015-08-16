@@ -17,13 +17,19 @@ include __DIR__ . "/nav.php";
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
-            <?php foreach ($this->data['items'] as $item): ?>
+            <?php foreach ($items as $item): ?>
                 <div class="row">
                     <div class="col-md-12">
-                        <span style="padding-right: 15px"><?php echo $item->getDate() ?></span>
-                        <a href="/index.php<?php echo '?ctrl=News&act=One&id=' . $item->getId() ?>">
-                            <?php $item->showPreview() ?>
-                        </a>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span style="padding-right: 15px; font-size: 0.8em; color: dimgray"><?php echo $item->getDateStr() ?></span>
+                            </div>
+                            <div class="col-md-10">
+                                <a href="/index.php<?php echo '?ctrl=News&act=One&id=' . $item->id ?>">
+                                    <?php $item->showPreview() ?>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>

@@ -8,7 +8,7 @@ function __autoload($className)
         require __DIR__ . '/controllers/' . $className . '.php';
     } elseif (file_exists(__DIR__ . '/models/' . $className . '.php')) {
         require __DIR__ . '/models/' . $className . '.php';
-    } elseif (file_exists(__DIR__ . '/view/classes/' . $className . '.php')) {
-        require __DIR__ . '/view/classes/' . $className . '.php';
+    } elseif (file_exists(__DIR__ . '/view/' . $className . '.php')) {
+        require __DIR__ . '/view/' . $className . '.php';
     }
 }

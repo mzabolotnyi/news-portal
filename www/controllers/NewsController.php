@@ -2,24 +2,27 @@
 
 class NewsController
 {
-    public function actionAll(){
-        $items = NewsArticle::getAll();
+    public function actionAll()
+    {
+        $items = NewsArticle::select('date DESC');
 
         $view = new View();
-        $view->setData('items',$items);
+        $view->items = $items;
         $view->display(__DIR__ . '/../view/templates/articleAll.php');
     }
 
-    public function actionOne(){
-        $item = NewsArticle::getById($_GET['id']);
+    public function actionOne()
+    {
+        $item = NewsArticle::selectById($_GET['id']);
 
         $view = new View();
-        $view->setData('item',$item);
-        $view->display(__DIR__.'/../view/templates/article.php');
+        $view->item = $item;
+        $view->display(__DIR__ . '/../view/templates/article.php');
     }
 
-    public function actionAdd(){
+    public function actionAdd()
+    {
         $view = new View();
-        $view->display(__DIR__.'/../view/templates/new_article.php');
+        $view->display(__DIR__ . '/../view/templates/new_article.php');
     }
 }

@@ -1,52 +1,32 @@
 <?php
 
+/**
+ * Class NewsArticle
+ * @property $id
+ * @property $date
+ * @property $title
+ * @property $content
+ * @property $author
+ */
 class NewsArticle
+    extends Model
 {
-    protected $date;
-    protected $id;
-
-    public $title;
-    public $content;
-    public $author;
-
-    public static function getAll()
-    {
-        $query = "SELECT * FROM articles ORDER BY date DESC";
-
-        return BD::sqlSelect($query, 'NewsArticle');
-    }
-
-    public static function getById($id)
-    {
-        $query = "SELECT * FROM articles WHERE id = '" . $id . "'";
-        $arr = BD::sqlSelect($query, 'NewsArticle');
-        if (count($arr) > 0) {
-            return $arr[0];
-        } else {
-            return false;
-        }
-    }
-
-    public function add()
-    {
-        {
-            if ($this->title == '') {
-                return false;
-            }
-
-            $query = "INSERT INTO articles (title, author, content) VALUES ('" . $this->title . "', '" . $this->author . "', '" . $this->content . "')";
-            return BD::sqlExecute($query);
-        }
-    }
-
-    public function getId()
-    {
-        return $this->id;
-    }
+    protected static $table = 'articles';
 
     public function getDate()
     {
-        return $this->date;
+        return strtotime($this->date);
+    }
+
+    public function getDateStr()
+    {
+        $date = $this->getDate();
+
+        if (date('o', $date) == date('o') && date('m', $date) == date('m') && date('j', $date) == date('j')) {
+            return date('H:i', $date);
+        } else {
+            return date('d F', $date);
+        }
     }
 
     public function showPreview()
