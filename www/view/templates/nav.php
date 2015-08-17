@@ -14,9 +14,9 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="/index.php?ctrl=News&act=Add">Add new</a></li>
+                <li><a href="/index.php?ctrl=Admin&act=Check">Admin panel</a></li>
             </ul>
 
         </div>

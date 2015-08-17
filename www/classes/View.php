@@ -17,6 +17,10 @@ class View
         return false;
     }
 
+    public function __isset($key){
+        return isset($this->data[$key]);
+    }
+
     public function render($template){
         foreach ($this->data as $key=>$val){
             $$key = $val;

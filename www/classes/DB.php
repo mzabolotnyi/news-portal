@@ -8,26 +8,45 @@ class DB
 
     public function __construct($className = 'stdClass')
     {
-        $this->dbh = new PDO('mysql:dbname=news;host=localhost', 'root', '');
-        $this->className = $className;
+        try {
+            $this->dbh = new PDO('mysql:dbname=news;host=localhost', 'root', '');
+            $this->className = $className;
+        } catch (PDOException $e) {
+            throw new E403Ecxeption('Forbidden', 403);
+        }
     }
 
     public function query($sql, $params = [])
     {
         $sth = $this->dbh->prepare($sql);
-        $sth->execute($params);
+        $res = $sth->execute($params);
+
+        if ($res == false) {
+            $e = E403Ecxeption('Forbidden', 403);
+            $e->origin = 'DB';
+            throw $e;
+        }
+
         return $sth->fetchAll(PDO::FETCH_CLASS, $this->className);
     }
 
     public function execute($sql, $params = [])
     {
         $sth = $this->dbh->prepare($sql);
+        $res = $sth->execute($params);
 
-        if ($sth->execute($params)){
-            return $this->dbh;
-        }else{
-            return false;
+        if ($res == false) {
+            $e = E403Ecxeption('Forbidden', 403);
+            $e->origin = 'DB';
+            throw $e;
         }
+
+        return $res;
+    }
+
+    public function lastInsertId()
+    {
+        return $this->dbh->lastInsertId();
     }
 
 }

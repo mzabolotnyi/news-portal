@@ -1,6 +1,6 @@
 <?php
 
-class Model
+abstract class Model
 {
     protected static $table;
 
@@ -16,15 +16,27 @@ class Model
         $sql = "SELECT * FROM " . static::$table . " WHERE id=:id";
         $db = new DB(get_called_class());
 
-        return $db->query($sql, [':id' => $id])[0];
+        $res = $db->query($sql, [':id' => $id]);
+
+        if (!empty($res)) {
+            return $res[0];
+        } else {
+            return false;
+        }
     }
 
     public static function selectByField($field, $val)
     {
-        $sql = "SELECT * FROM " . static::$table . " WHERE " . $field . "=" . ':' . $field;
+        $sql = "SELECT * FROM " . static::$table . " WHERE " . $field . "=" . ':value';
         $db = new DB(get_called_class());
 
-        return $db->query($sql, [':' . $field => $val])[0];
+        $res = $db->query($sql, [':value' => $val]);
+
+        if (!empty($res)) {
+            return $res[0];
+        } else {
+            return false;
+        }
     }
 
     protected $data = [];
@@ -37,6 +49,11 @@ class Model
     public function __get($k)
     {
         return $this->data[$k];
+    }
+
+    public function __isset($k)
+    {
+        return isset($this->data[$k]);
     }
 
     protected function insert()
@@ -56,8 +73,8 @@ class Model
         $db = new DB();
         $res = $db->execute($sql, $data);
 
-        if ($res != false) {
-            $this->id = $res->lastInsertId();
+        if ($res) {
+            $this->id = $db->lastInsertId();
             $this->date = self::selectById($this->id)->date;
             return true;
         } else {
@@ -67,27 +84,21 @@ class Model
 
     protected function update()
     {
-        $cols = array_keys($this->data);
+        $cols = [];
         $data = [];
-        $setStr = '';
-        foreach ($cols as $col) {
+        foreach ($this->data as $k => $v) {
+            $data[':' . $k] = $this->data[$k];
 
-            $data[':' . $col] = $this->data[$col];
-
-            if ($col == 'id') {
+            if ($k == 'id') {
                 continue;
             }
 
-            if ($setStr == '') {
-                $setStr = $setStr . $col . '=:' . $col;
-            } else {
-                $setStr = $setStr . ',' . $col . '=:' . $col;
-            }
+            $cols[] = $k . '=:' . $k;
         }
 
         $sql = "
             UPDATE " . static::$table .
-            " SET " . $setStr .
+            " SET " . implode(', ', $cols) .
             " WHERE id=:id";
 
         $db = new DB();
@@ -111,10 +122,10 @@ class Model
 
     public function save()
     {
-        if (empty($this->data['id'])) {
-            return $this->insert();
-        } else {
+        if (isset($this->id)) {
             return $this->update();
+        } else {
+            return $this->insert();
         }
     }
 

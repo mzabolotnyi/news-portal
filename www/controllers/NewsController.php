@@ -15,14 +15,15 @@ class NewsController
     {
         $item = NewsArticle::selectById($_GET['id']);
 
+        if ($item == false) {
+            $e = new E404Ecxeption('News with id ' . $_GET['id'] . ' not found', 404);
+            $e->origin = 'NewsController';
+            throw $e;
+        }
+
         $view = new View();
         $view->item = $item;
         $view->display(__DIR__ . '/../view/templates/article.php');
     }
 
-    public function actionAdd()
-    {
-        $view = new View();
-        $view->display(__DIR__ . '/../view/templates/new_article.php');
-    }
 }
